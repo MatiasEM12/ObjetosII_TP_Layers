@@ -1,12 +1,13 @@
 package ejercicio_1.vista;
 
+import ejercicio_1.modelo.Participante;
+import ejercicio_1.modelo.ParticipanteAPI;
+
+
 import java.awt.ComponentOrientation;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,24 +17,18 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import static java.time.chrono.JapaneseEra.values;
+
 
 public class AgregarParticipante extends JFrame {
-    private Connection dbConn;
+
     private JTextField nombre;
     private JTextField telefono;
     private JTextField region;
+    ParticipanteAPI api;
 
-    public AgregarParticipante() throws SQLException {
-        setupBaseDeDatos();
+    public AgregarParticipante(ParticipanteAPI api) throws SQLException {
         setupUIComponents();
-    }
-
-    private void setupBaseDeDatos() throws SQLException {
-        String url = "jdbc:derby://localhost:1527/participantes";
-        String user = "app";
-        String password = "app";
-        this.dbConn = DriverManager.getConnection(url, user, password);
+        this.api=api;
     }
 
     private void setupUIComponents() {
@@ -58,11 +53,7 @@ public class AgregarParticipante extends JFrame {
         JButton botonCargar = new JButton("Cargar");
         botonCargar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                try {
-                    onBotonCargar();
-                } catch (SQLException e1) {
-                    throw new RuntimeException(e1);
-                }
+                onBotonCargar();
             }
         });
         contentPane.add(botonCargar);
@@ -72,43 +63,21 @@ public class AgregarParticipante extends JFrame {
         setVisible(true);
     }
 
-    private void onBotonCargar() throws SQLException {
-        if (nombre.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Debe cargar un nombre");
-
-            return;
-        }
-        if (telefono.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Debe cargar un telefono");
-            return;
-        }
-        if (!validarTelefono(telefono.getText())) {
-            JOptionPane.showMessageDialog(this, "El teléfono debe ingresarse de la siguiente
-                    forma: NNNN-NNNNNN");
-            return;
-        }
-        if (!region.getText().equals("China") && !region.getText().equals("US") && !
-                region.getText().equals("Europa")) {
-            JOptionPane.showMessageDialog(this, "Region desconocida. Las conocidas son:
-                    China, US, Europa");
-            return;
-        }
-        PreparedStatement st = dbConn
-                .prepareStatement("insert into participantes(nombre, telefono, region)
-                        values(?,?,?)");
+    private void onBotonCargar() {
         try {
-            st.setString(1, nombre.getText());
-            st.setString(2, telefono.getText());
-            st.setString(3, region.getText());
-            st.executeUpdate();
-        } finally {
-            st.close();
+            Participante participante = new Participante(
+                    nombre.getText(),
+                    telefono.getText(),
+                    region.getText()
+            );
+
+            api.guardarParticipante(participante);
+            dispose();
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
         }
-        dispose();
     }
-    private boolean validarTelefono(String telefono) {
-        String regex = "\\d{4}-\\d{6}";
-        return telefono.matches(regex);
-    }
+
 }
 
