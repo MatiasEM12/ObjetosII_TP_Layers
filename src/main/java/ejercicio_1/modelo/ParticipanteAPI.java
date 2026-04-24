@@ -13,12 +13,12 @@ public class ParticipanteAPI {
 
     public ParticipanteAPI() throws Exception {
         connection = ConexionBD.obtenerConexion();
-        var dao = new ParticipanteDAO(connection);
-        servicio = new ParticipanteServicio(dao);
+        var dao = new ParticipanteDAO(connection);//inyectado
+        servicio = new ParticipanteServicio(dao);//inyectado
     }
-
+//las clases que conectan las capas se inyectan en main
     public void guardarParticipante(Participante participante) throws Exception {
-
+//recibo 3 string       Telefono tel= new Telefono( string inyectado);
         servicio.agregarParticipante(participante);
 
 

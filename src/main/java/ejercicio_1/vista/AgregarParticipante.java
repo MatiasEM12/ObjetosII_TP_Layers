@@ -65,12 +65,12 @@ public class AgregarParticipante extends JFrame {
 
     private void onBotonCargar() {
         try {
-            Participante participante = new Participante(
+            Participante participante = new Participante(//eliminar
                     nombre.getText(),
                     telefono.getText(),
                     region.getText()
             );
-
+            //pasar los string o record
             api.guardarParticipante(participante);
             dispose();
 

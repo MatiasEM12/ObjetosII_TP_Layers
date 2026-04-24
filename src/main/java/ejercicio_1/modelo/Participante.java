@@ -2,12 +2,12 @@ package ejercicio_1.modelo;
 
 public class Participante {
     private String nombre;
-    private String telefono;
+    private Telefono telefono;
     private String region;
 
-    public Participante(String nombre, String telefono, String region) {
+    public Participante(String nombre, Telefono telefono, String region) {
         validarNombre(nombre);
-        validarTelefono(telefono);
+
         validarRegion(region);
 
         this.nombre = nombre;
@@ -20,16 +20,7 @@ public class Participante {
         }
     }
 
-    private void validarTelefono(String telefono) {
-        if (telefono == null || telefono.isEmpty()) {
-            throw new RuntimeException("Debe cargar un telefono");
-        }
 
-        String regex = "\\d{4}-\\d{6}";
-        if (!telefono.matches(regex)) {
-            throw new RuntimeException("Formato de telefono inválido (NNNN-NNNNNN)");
-        }
-    }
 
     private void validarRegion(String region) {
         if (!region.equals("China") && !region.equals("US") && !region.equals("Europa")) {
@@ -38,7 +29,7 @@ public class Participante {
     }
 
     public String nombre() { return nombre; }
-    public String telefono() { return telefono; }
+    public String telefono() { return telefono.numero(); }
     public String region() { return region; }
 }
 
