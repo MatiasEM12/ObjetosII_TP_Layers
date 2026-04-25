@@ -1,7 +1,8 @@
 package ejercicio_1.vista;
 
-import ejercicio_1.modelo.Participante;
-import ejercicio_1.modelo.ParticipanteAPI;
+
+import ejercicio_1.modelo.GestorParticipante;
+
 
 
 import java.awt.ComponentOrientation;
@@ -24,9 +25,9 @@ public class AgregarParticipante extends JFrame {
     private JTextField nombre;
     private JTextField telefono;
     private JTextField region;
-    ParticipanteAPI api;
+    GestorParticipante api;
 
-    public AgregarParticipante(ParticipanteAPI api) throws SQLException {
+    public AgregarParticipante(GestorParticipante api) throws SQLException {
         setupUIComponents();
         this.api=api;
     }
@@ -65,13 +66,9 @@ public class AgregarParticipante extends JFrame {
 
     private void onBotonCargar() {
         try {
-            Participante participante = new Participante(//eliminar
-                    nombre.getText(),
-                    telefono.getText(),
-                    region.getText()
-            );
-            //pasar los string o record
-            api.guardarParticipante(participante);
+
+
+            api.guardarParticipante( nombre.getText(), telefono.getText(), region.getText());
             dispose();
 
         } catch (Exception ex) {

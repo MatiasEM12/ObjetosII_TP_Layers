@@ -4,12 +4,12 @@ import ejercicio_1.persistencia.ParticipanteDAO;
 
 import java.sql.SQLException;
 
-public class ParticipanteServicio {
+public class ConexionParticipante {
 
 
     private ParticipanteDAO dao;
 
-    public ParticipanteServicio(ParticipanteDAO dao) {
+    public ConexionParticipante(ParticipanteDAO dao) {
         this.dao = dao;
     }
 
