@@ -8,4 +8,6 @@ public interface RegistroEmpleados <T>{
     public  void guardar(Empleado empleado);
 
     public List<T> empleados();
+
+    public  void eliminarRegistro(String ruta);
 }

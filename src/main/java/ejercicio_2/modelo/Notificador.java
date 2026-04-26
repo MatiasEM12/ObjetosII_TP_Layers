@@ -7,4 +7,6 @@ public interface Notificador {
     public String obtenerUltimoMail();
 
     public int cantidadDeNotificaciones();
+
+
 }

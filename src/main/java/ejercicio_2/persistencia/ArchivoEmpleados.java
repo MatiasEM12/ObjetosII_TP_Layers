@@ -75,6 +75,19 @@ public class ArchivoEmpleados implements RegistroEmpleados {
 
         return empleados;
     }
+
+    @Override
+    public void eliminarRegistro(String ruta) {
+        File archivoAEliminar = new File(ruta);
+        if (archivoAEliminar.exists()) {
+            if (!archivoAEliminar.delete()) {
+                throw new RuntimeException("No se pudo eliminar el archivo: " + ruta);
+            }
+        } else {
+            throw new RuntimeException("El archivo no existe: " + ruta);
+        }
+    }
+
     private void validarDato(String dato){
         if(dato==null || dato.isEmpty())throw new IllegalArgumentException("El dato no puede ser nulo o vacío.");
     }
