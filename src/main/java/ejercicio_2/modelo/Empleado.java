@@ -1,8 +1,10 @@
 package ejercicio_2.modelo;
 
 import java.time.LocalDate;
+import java.time.MonthDay;
+import java.util.Objects;
 
-import static com.sun.tools.javac.util.Constants.format;
+
 import static java.time.MonthDay.from;
 
 public class Empleado {
@@ -28,15 +30,30 @@ public class Empleado {
         return apellido;
     }
 
+    public LocalDate fechaNacimiento() {
+        return fechaNacimiento;
+    }
+
 
     public String email() {
         return email;
     }
 
-    public boolean esTuCumpleaños(LocalDate hoy){
+    public boolean esTuCumpleaños(MonthDay hoy){
         return from(this.fechaNacimiento).equals(hoy);
     }
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Empleado)) return false;
+        Empleado empleado = (Empleado) o;
+        return email.equals(empleado.email);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(email);
+    }
 }

@@ -2,6 +2,7 @@ package ejercicio_2.modelo;
 
 import java.time.MonthDay;
 import java.time.temporal.ValueRange;
+import java.util.List;
 
 public class MensajeCumpleaños {
     private RegistroEmpleados registroEmpleados;
@@ -13,9 +14,9 @@ public class MensajeCumpleaños {
     }
 
      public void enviarMensajeCumpleaños(MonthDay hoy) {
-         var empleados= registroEmpleados.empleados();
+         List<Empleado> empleados= registroEmpleados.empleados();
 
-         for( var empleado : empleados){
+         for( Empleado empleado : empleados){
              if(empleado.esTuCumpleaños(hoy)){
                     notificador.notificar(empleado.email(), "Feliz cumpleaños ");
              }
