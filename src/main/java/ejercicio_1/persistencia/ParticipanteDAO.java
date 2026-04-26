@@ -23,7 +23,7 @@ public class ParticipanteDAO  implements RegistroParticipante {
 
         try {
             st.setString(1, participante.nombre());
-            st.setString(2, participante.telefono());//al telefono al ser un objeto se podofica
+            st.setString(2, participante.telefono());
             st.setString(3, participante.region());
             st.executeUpdate();
         } finally {

@@ -15,8 +15,5 @@ public class GestorParticipante {
     public void guardarParticipante(String nombre, String telefono, String region) throws Exception {
         var participante = new Participante(nombre, new Telefono(telefono), region);
         this.registroParticipante.guardar(participante);
-
-
-
     }
 }
