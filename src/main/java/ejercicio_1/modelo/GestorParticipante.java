@@ -1,26 +1,21 @@
 package ejercicio_1.modelo;
 
 
-
-
-import ejercicio_1.persistencia.ParticipanteDAO;
-
-import java.sql.Connection;
-
 public class GestorParticipante {
 
 
-    Connection connection;
-    ConexionParticipante servicio;
+ ;
+    RegistroParticipante registroParticipante;
 
-    public GestorParticipante(ConexionParticipante servicio ) throws Exception {
+    public GestorParticipante(RegistroParticipante registro ) throws Exception {
 
-       this.servicio=servicio;
+       this.registroParticipante=registro;
     }
 
     public void guardarParticipante(String nombre, String telefono, String region) throws Exception {
+        var participante = new Participante(nombre, new Telefono(telefono), region);
+        this.registroParticipante.guardar(participante);
 
-        servicio.agregarParticipante(new Participante(nombre, new Telefono(telefono), region));
 
 
     }

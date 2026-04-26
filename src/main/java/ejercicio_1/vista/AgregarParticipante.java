@@ -25,11 +25,11 @@ public class AgregarParticipante extends JFrame {
     private JTextField nombre;
     private JTextField telefono;
     private JTextField region;
-    GestorParticipante api;
+    GestorParticipante gestorParticipante;
 
-    public AgregarParticipante(GestorParticipante api) throws SQLException {
+    public AgregarParticipante(GestorParticipante gestorParticipante) throws SQLException {
         setupUIComponents();
-        this.api=api;
+        this.gestorParticipante=gestorParticipante;
     }
 
     private void setupUIComponents() {
@@ -68,7 +68,7 @@ public class AgregarParticipante extends JFrame {
         try {
 
 
-            api.guardarParticipante( nombre.getText(), telefono.getText(), region.getText());
+            gestorParticipante.guardarParticipante( nombre.getText(), telefono.getText(), region.getText());
             dispose();
 
         } catch (Exception ex) {

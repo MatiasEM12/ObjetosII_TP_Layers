@@ -1,11 +1,12 @@
 package ejercicio_1.persistencia;
 import ejercicio_1.modelo.Participante;
+import ejercicio_1.modelo.RegistroParticipante;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 
-public class ParticipanteDAO {
+
+public class ParticipanteDAO  implements RegistroParticipante {
 
     private Connection connection;
 
@@ -13,7 +14,9 @@ public class ParticipanteDAO {
         this.connection = connection;
     }
 
-    public void guardar(Participante participante) throws SQLException {
+
+    @Override
+    public void guardar(Participante participante) throws Exception {
         PreparedStatement st = connection.prepareStatement(
                 "insert into participantes(nombre, telefono, region) values(?,?,?)"
         );
@@ -27,5 +30,5 @@ public class ParticipanteDAO {
             st.close();
         }
     }
-
 }
+
