@@ -1,15 +1,19 @@
 package ejercicio_3.vista;
 
 
+import ejercicio_3.modelo.GestorInscripciones;
+import ejercicio_3.modelo.GestorConcursos;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -31,7 +35,14 @@ import javax.swing.border.EmptyBorder;
         private JButton btnOk;
         private JLabel lblCompetition;
 
-        public RadioCompetition() {
+        private GestorConcursos gestorConcursos;
+        private GestorInscripciones gestorInscripciones;
+
+
+        public RadioCompetition(GestorInscripciones gestorInscripciones, GestorConcursos gestorConcurso) {
+            this.gestorConcursos = gestorConcurso;
+            this.gestorInscripciones = gestorInscripciones;
+
             var frame = new JFrame("Inscription to Competition");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setBounds(100, 100, 451, 229);
@@ -73,77 +84,92 @@ import javax.swing.border.EmptyBorder;
         }
 
         private void todosLosConcursos() {
-            // carga del archivo de texto concursos.txt los concursos
-        }
-        private void saveInscription() {
-            if (validations()) {// Guarda en inscriptos.txt los datos de la persona y el concurso elegido
+
+            var concursos = gestorConcursos.listarConcursosActivos();
+            for (var concurso : concursos) {
+                comboBox.addItem(String.valueOf(concurso.id()));
             }
         }
+        private void saveInscription() {
+            try {
+                String nombre = txtName.getText();
+                String apellido = txtLastName.getText();
+                String dni = txtId.getText();
+                String telefono = txtPhone.getText();
+                String email = txtEmail.getText();
+                String idConcurso = (String) comboBox.getSelectedItem();
 
-        private void layout() {
-            GroupLayout gl_contentPane = new GroupLayout(contentPane);
-            gl_contentPane.setHorizontalGroup(gl_contentPane
-                    .createParallelGroup(Alignment.LEADING)
-                    .addGroup(gl_contentPane.createSequentialGroup().addContainerGap()
-                            .addGroup(gl_contentPane
-                                    .createParallelGroup(Alignment.LEADING).addGroup(gl_contentPane
-                                            .createSequentialGroup()
-                                            .addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-                                                    .addComponent(lblLastName).addComponent(lblId)
-                                                    .addComponent(lblPhone).addComponent(lblEmail)
-                                                    .addComponent(lblName).addComponent(lblCompetition))
-                                            .addPreferredGap(ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                                            .addGroup(
-                                                    gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-                                                            .addComponent(comboBox, 0, GroupLayout.DEFAULT_SIZE,
-                                                                    Short.MAX_VALUE)
-                                                            .addComponent(txtEmail, Alignment.TRAILING)
-                                                            .addComponent(txtPhone, Alignment.TRAILING)
-                                                            .addComponent(txtId, Alignment.TRAILING)
-                                                            .addComponent(txtLastName, Alignment.TRAILING)
-                                                            .addComponent(txtName, Alignment.TRAILING,
-                                                                    GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)))
-                                    .addComponent(btnOk, Alignment.TRAILING,
-                                            GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE))
-                            .addContainerGap()));
-            gl_contentPane
-                    .setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-                            .addGroup(gl_contentPane.createSequentialGroup()
-                                    .addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-                                            .addComponent(txtName, GroupLayout.PREFERRED_SIZE,
-                                                    GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lblName))
-                                    .addPreferredGap(ComponentPlacement.RELATED)
-                                    .addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-                                            .addComponent(lblLastName).addComponent(txtLastName,
-                                                    GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-                                                    GroupLayout.PREFERRED_SIZE))
-                                    .addPreferredGap(ComponentPlacement.RELATED)
-                                    .addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-                                            .addComponent(lblId).addComponent(
-                                                    txtId, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-                                                    GroupLayout.PREFERRED_SIZE))
-                                    .addPreferredGap(ComponentPlacement.RELATED)
-                                    .addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-                                            .addGroup(
-                                                    gl_contentPane.createSequentialGroup().addComponent(lblPhone)
-                                                            .addPreferredGap(ComponentPlacement.UNRELATED)
-                                                            .addComponent(lblEmail))
-                                            .addGroup(gl_contentPane.createSequentialGroup()
-                                                    .addComponent(txtPhone, GroupLayout.PREFERRED_SIZE,
-                                                            GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                                    .addPreferredGap(ComponentPlacement.RELATED)
-                                                    .addComponent(txtEmail, GroupLayout.PREFERRED_SIZE,
-                                                            GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                                    .addPreferredGap(ComponentPlacement.RELATED).addGroup(
-                                                            gl_contentPane.createParallelGroup(Alignment.BASELINE)
-                                                                    .addComponent(comboBox, GroupLayout.PREFERRED_SIZE,
-                                                                            GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                                                    .addComponent(lblCompetition))))
-                                    .addPreferredGap(ComponentPlacement.RELATED).addComponent(btnOk)
-                                    .addContainerGap(67, Short.MAX_VALUE)));
-            contentPane.setLayout(gl_contentPane);
+                gestorInscripciones.guardarInscripto(nombre, apellido, dni, telefono, email, idConcurso);
+            } catch (Exception e) {
+
+                System.err.println("Error al guardar la inscripción: " + e.getMessage());
+            }
         }
+        private void layout() {
+            GroupLayout layout = new GroupLayout(contentPane);
+            contentPane.setLayout(layout);
+
+            layout.setHorizontalGroup(createHorizontalGroup(layout));
+            layout.setVerticalGroup(createVerticalGroup(layout));
+        }
+
+        private GroupLayout.Group createHorizontalGroup(GroupLayout layout) {
+            return layout.createParallelGroup(Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addGroup(layout.createParallelGroup(Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(Alignment.LEADING)
+                                                    .addComponent(lblLastName)
+                                                    .addComponent(lblId)
+                                                    .addComponent(lblPhone)
+                                                    .addComponent(lblEmail)
+                                                    .addComponent(lblName)
+                                                    .addComponent(lblCompetition))
+                                            .addPreferredGap(ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                                            .addGroup(layout.createParallelGroup(Alignment.LEADING, false)
+                                                    .addComponent(comboBox, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(txtEmail, Alignment.TRAILING)
+                                                    .addComponent(txtPhone, Alignment.TRAILING)
+                                                    .addComponent(txtId, Alignment.TRAILING)
+                                                    .addComponent(txtLastName, Alignment.TRAILING)
+                                                    .addComponent(txtName, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)))
+                                    .addComponent(btnOk, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE))
+                            .addContainerGap());
+        }
+
+        private GroupLayout.Group createVerticalGroup(GroupLayout layout) {
+            return layout.createSequentialGroup()
+                    .addGroup(layout.createParallelGroup(Alignment.BASELINE)
+                            .addComponent(txtName)
+                            .addComponent(lblName))
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addGroup(layout.createParallelGroup(Alignment.BASELINE)
+                            .addComponent(lblLastName)
+                            .addComponent(txtLastName))
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addGroup(layout.createParallelGroup(Alignment.BASELINE)
+                            .addComponent(lblId)
+                            .addComponent(txtId))
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addGroup(layout.createParallelGroup(Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                    .addComponent(lblPhone)
+                                    .addPreferredGap(ComponentPlacement.UNRELATED)
+                                    .addComponent(lblEmail))
+                            .addGroup(layout.createSequentialGroup()
+                                    .addComponent(txtPhone)
+                                    .addPreferredGap(ComponentPlacement.RELATED)
+                                    .addComponent(txtEmail)
+                                    .addPreferredGap(ComponentPlacement.RELATED)
+                                    .addGroup(layout.createParallelGroup(Alignment.BASELINE)
+                                            .addComponent(comboBox)
+                                            .addComponent(lblCompetition))))
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addComponent(btnOk)
+                    .addContainerGap(67, Short.MAX_VALUE);
+        }
+
     }
 
 

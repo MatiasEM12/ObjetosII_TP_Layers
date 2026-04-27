@@ -63,8 +63,11 @@ public class Inscripto {
             throw new IllegalArgumentException("Debe ingresar un teléfono");
         }
     }
+    public boolean mismaInscripcion(Inscripto otro) {
+        return this.dni.equals(otro.dni) && this.idConcurso == otro.idConcurso;
+    }
 
     public String toFile() {
-        return apellido + ", " + nombre + ", " + telefono + ", " + email + ", " + idConcurso;
+        return apellido + "," + nombre + "," + dni + "," + telefono.numero() + "," + email.email() + "," + idConcurso;
     }
 }

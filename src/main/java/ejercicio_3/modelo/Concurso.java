@@ -53,6 +53,9 @@ public class Concurso {
     public int id() {
         return id;
     }
+    public boolean mismoId(Concurso otro) {
+        return this.id == otro.id;
+    }
 
     public String toFile(){
         return id + "," + nombre + "," + toLocalDate(fechaInicio) + "," + toLocalDate(fechaFin);
