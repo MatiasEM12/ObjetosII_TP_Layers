@@ -145,7 +145,6 @@ import javax.swing.border.EmptyBorder;
             contentPane.setLayout(gl_contentPane);
         }
     }
-                      package ar.unrn.oop2.programa;
-                      import javax.swing.SwingUtilities;
 
-}
+
+

@@ -6,13 +6,22 @@ public class Inscripto {
 
     private String nombre;
     private String apellido;
-    private String telefono;
-    private String email;
+    private String dni;
+    private Telefono telefono;
+    private Email email;
     private int idConcurso;
 
-    public Inscripto(String nombre, String apellido, String telefono, String email, int idConcurso) {
+    public Inscripto(String nombre, String apellido,String dni ,Telefono telefono, Email email, int idConcurso) {
+        validarNombre(nombre);
+        validarApellido(apellido);
+        validarDni(dni);
+        validarIdconcurso(idConcurso);
+        validarEmail(email);
+        validarTelefono(telefono);
+
         this.nombre = nombre;
         this.apellido = apellido;
+        this.dni=dni;
         this.telefono = telefono;
         this.email = email;
         this.idConcurso = idConcurso;
@@ -43,4 +52,19 @@ public class Inscripto {
         }
     }
 
+    private void validarEmail(Email email){
+        if(email == null) {
+            throw new IllegalArgumentException("Debe ingresar un email");
+        }
+    }
+
+    private void validarTelefono(Telefono telefono){
+        if(telefono == null) {
+            throw new IllegalArgumentException("Debe ingresar un teléfono");
+        }
+    }
+
+    public String toFile() {
+        return apellido + ", " + nombre + ", " + telefono + ", " + email + ", " + idConcurso;
+    }
 }
