@@ -10,7 +10,7 @@ import java.time.MonthDay;
 
 public class Main {
 
-    private static String RUTA="src/main/java/resources/empleados.txt";
+    private static String RUTA= "src/main/java/ejercicio_2/persistencia/empleados.txt";
 
     public static void main(String[] args) {
 

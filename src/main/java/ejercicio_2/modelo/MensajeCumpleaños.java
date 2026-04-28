@@ -1,7 +1,7 @@
 package ejercicio_2.modelo;
 
 import java.time.MonthDay;
-import java.time.temporal.ValueRange;
+
 import java.util.List;
 
 public class MensajeCumpleaños {
