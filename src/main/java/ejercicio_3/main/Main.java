@@ -4,6 +4,8 @@ import ejercicio_3.modelo.GestorConcursos;
 import ejercicio_3.modelo.GestorInscripciones;
 import ejercicio_3.persistencia.ArchivoConcursos;
 import ejercicio_3.persistencia.ArchivoInscriptos;
+import ejercicio_3.persistencia.ConcursoDAOJDBC;
+import ejercicio_3.persistencia.InscriptosDAOJDBC;
 import ejercicio_3.vista.RadioCompetition;
 
 import javax.swing.*;
@@ -34,63 +36,28 @@ public class Main {
         });
     }
     private void start() {
-        inicializarArchivos();
-        var gestorConcurso= new GestorConcursos(new ArchivoConcursos(RUTA_CONCURSOS));
-        var gestorInscriptos= new GestorInscripciones(new ArchivoInscriptos(RUTA_INSCRIPTOS));
 
-        new RadioCompetition( gestorInscriptos,gestorConcurso);
+
+       // usarConArchivo();
+
+        usarConBaseDeDatos();
+
     }
 
-    private void inicializarArchivos() {
-
-        try {
-            inicializarConcursos();
-            inicializarInscriptos();
-        } catch (Exception e) {
-            throw new RuntimeException("Error al inicializar archivos", e);
-        }
+    private static void usarConArchivo() {
+        new SetUpArchivo(RUTA_CONCURSOS, RUTA_INSCRIPTOS).inicializar();
+        var gestorConcurso = new GestorConcursos(new ArchivoConcursos(RUTA_CONCURSOS));
+        var gestorInscriptos = new GestorInscripciones(new ArchivoInscriptos(RUTA_INSCRIPTOS));
+        new RadioCompetition(gestorInscriptos, gestorConcurso);
     }
+    private static void usarConBaseDeDatos() {
 
-    private void inicializarConcursos() throws Exception {
-        File archivo = new File(RUTA_CONCURSOS);
+        new SetUpBD().inicializar();
 
-        if (archivo.exists() && archivo.length() > 0) {
-            return; // El archivo ya existe y no está vacío, no se necesita inicializar
-        }
+        var gestorConcurso = new GestorConcursos(new ConcursoDAOJDBC());
+        var gestorInscriptos = new GestorInscripciones(new InscriptosDAOJDBC());
 
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(archivo))) {
-
-            bw.write("1,Concurso X,2020/06/01,2020/07/01");
-            bw.newLine();
-            bw.write("2,Concurso Y,2020/08/01,2020/09/01");
-            bw.newLine();
-
-            LocalDate inicio = LocalDate.now();
-            LocalDate fin = LocalDate.now().plusDays(10);
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-
-            bw.write("3,Concurso Z," + inicio.format(formatter) + "," + fin.format(formatter));
-            bw.newLine();
-
-        }
-    }
-
-    private void inicializarInscriptos() throws Exception {
-        File archivo = new File(RUTA_INSCRIPTOS);
-
-        if (archivo.exists() && archivo.length() > 0) {
-            return;
-        }
-
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(archivo))) {
-
-            bw.write("Young,Angus,12345678,4444-898789,angus@acdc.com,1");
-            bw.newLine();
-            bw.write("Johnson,Brian,87654321,7789-658987,brian@acdc.com,2");
-            bw.newLine();
-
-
-        }
+        new RadioCompetition(gestorInscriptos, gestorConcurso);
     }
 }
 

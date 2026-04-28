@@ -6,25 +6,48 @@ import ejercicio_3.modelo.Telefono;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class InscriptosDAOJDBC implements InscriptoDAO {
 
+
     @Override
-    public void create(Inscripto inscripto) {
-        validarInscripto(inscripto);
+    public void truncateTabla() {
+        final String SQL = "TRUNCATE TABLE inscriptos";
+
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement st = conn.prepareStatement(SQL)) {
+
+            st.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            ConnectionManager.disconnect();
+        }
+    }
+
+    private void validarInscripto(Inscripto inscripto) {
+        if (inscripto == null) {
+            throw new IllegalArgumentException("Inscripto no puede ser null");
+        }
+    }
+
+    @Override
+    public void crear(Inscripto dato) {
+        validarInscripto(dato);
 
         final String SQL = "INSERT INTO inscriptos (apellido, nombre, telefono, email, dni, id_concurso) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = ConnectionManager.getConnection();
              PreparedStatement st = conn.prepareStatement(SQL)) {
 
-            st.setString(1, inscripto.apellido());
-            st.setString(2, inscripto.nombre());
-            st.setString(3, inscripto.telefono());
-            st.setString(4, inscripto.email());
-            st.setString(5, inscripto.dni());
-            st.setInt(6, inscripto.idConcurso());
+            st.setString(1, dato.apellido());
+            st.setString(2, dato.nombre());
+            st.setString(3, dato.telefono());
+            st.setString(4, dato.email());
+            st.setString(5, dato.dni());
+            st.setInt(6, dato.idConcurso());
 
             st.executeUpdate();
 
@@ -36,10 +59,15 @@ public class InscriptosDAOJDBC implements InscriptoDAO {
     }
 
     @Override
-    public List<Inscripto> findAll() {
+    public void eliminarArchivo(String ruta) {
+        throw new RuntimeException("Operación no soportada en esta implementación");
+    }
+
+    @Override
+    public ArrayList<Inscripto> listar() {
         final String SQL = "SELECT apellido, nombre, telefono, email, dni, id_concurso FROM inscriptos";
 
-        List<Inscripto> inscriptos = new ArrayList<>();
+        ArrayList<Inscripto> inscriptos = new ArrayList<>();
 
         try (Connection conn = ConnectionManager.getConnection();
              PreparedStatement st = conn.prepareStatement(SQL);
@@ -72,38 +100,5 @@ public class InscriptosDAOJDBC implements InscriptoDAO {
         }
 
         return inscriptos;
-    }
-
-    @Override
-    public List<String> findAllInscriptos() {
-        List<String> lista = new ArrayList<>();
-
-        for (Inscripto i : findAll()) {
-            lista.add(i.toFile());
-        }
-
-        return lista;
-    }
-
-    @Override
-    public void truncateTabla() {
-        final String SQL = "TRUNCATE TABLE inscriptos";
-
-        try (Connection conn = ConnectionManager.getConnection();
-             PreparedStatement st = conn.prepareStatement(SQL)) {
-
-            st.executeUpdate();
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            ConnectionManager.disconnect();
-        }
-    }
-
-    private void validarInscripto(Inscripto inscripto) {
-        if (inscripto == null) {
-            throw new IllegalArgumentException("Inscripto no puede ser null");
-        }
     }
 }

@@ -1,15 +1,12 @@
 package ejercicio_3.persistencia;
 
+import ejercicio_3.modelo.GestionPersistencia;
 import ejercicio_3.modelo.Inscripto;
 
 import java.util.List;
 
-public interface InscriptoDAO {
-    public  void create(Inscripto inscripto);
+public interface InscriptoDAO extends GestionPersistencia <Inscripto>{
 
-    public  List<Inscripto> findAll();
-
-    public List<String> findAllInscriptos();
 
     public void truncateTabla();
 }
