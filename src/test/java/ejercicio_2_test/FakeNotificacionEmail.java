@@ -1,4 +1,4 @@
-package ejercicio_1_test;
+package ejercicio_2_test;
 
 import ejercicio_2.modelo.Notificador;
 
