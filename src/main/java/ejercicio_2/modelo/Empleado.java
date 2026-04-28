@@ -62,20 +62,21 @@ public class Empleado {
         return Objects.hash(email);
     }
 
-    private void validacionNombre( String nombre) throws IllegalArgumentException{
-        if(nombre.isEmpty()){
-            throw new IllegalArgumentException("El nombre no puede estar vacío");
-        }
-        if(nombre==null){
+    private void validacionNombre(String nombre) {
+        if (nombre == null) {
             throw new IllegalArgumentException("El nombre no puede ser null");
         }
-    }
-    private void validacionApellido(String apellido)throws IllegalArgumentException{
-        if(apellido.isEmpty()){
-            throw new IllegalArgumentException("El apellido no puede estar vacío");
+        if (nombre.isEmpty()) {
+            throw new IllegalArgumentException("El nombre no puede estar vacío");
         }
-        if(apellido==null){
+    }
+
+    private void validacionApellido(String apellido) {
+        if (apellido == null) {
             throw new IllegalArgumentException("El apellido no puede ser null");
+        }
+        if (apellido.isEmpty()) {
+            throw new IllegalArgumentException("El apellido no puede estar vacío");
         }
     }
     private void validarFechaDeNacimiento(LocalDate fechaNacimiento) throws IllegalArgumentException{
