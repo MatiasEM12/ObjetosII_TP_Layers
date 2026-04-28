@@ -17,8 +17,8 @@ import java.time.format.DateTimeFormatter;
 
 public class Main {
 
-    public static final String RUTA_CONCURSOS = "concursos.txt";
-    public static final String RUTA_INSCRIPTOS = "inscriptos.txt";
+    public static final String RUTA_CONCURSOS = "src/main/resources/concursos.txt";
+    public static final String RUTA_INSCRIPTOS = "src/main/resources/inscriptos.txt";
 
 
     public static void main(String[] args) {
@@ -38,9 +38,8 @@ public class Main {
     private void start() {
 
 
-       // usarConArchivo();
-
-        usarConBaseDeDatos();
+       usarConArchivo();
+        // usarConBaseDeDatos();
 
     }
 
