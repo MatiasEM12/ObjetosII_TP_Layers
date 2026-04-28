@@ -16,14 +16,18 @@ public class NotificacionEmail implements Notificador{
     private String origen;
     private int cantNotificaciones;
 
-    public NotificacionEmail(Session session ,String origen) {
+    public NotificacionEmail(Session session ,String origen)  throws IllegalArgumentException{
+        validacionSession(session);
+        validacionOrigen(origen);
         this.session = session;
         this.origen=origen;
         this.cantNotificaciones=0;
     }
 
     @Override
-    public void notificar(String email,String mensaje) {
+    public void notificar(String email,String mensaje) throws IllegalArgumentException{
+        validacionEmail(email);
+        validacionMensaje(mensaje);
         try{
             Message message=new MimeMessage(session);
             message.setFrom(new InternetAddress(origen));
@@ -49,5 +53,29 @@ public class NotificacionEmail implements Notificador{
     @Override
     public int cantidadDeNotificaciones() {
         return this.cantNotificaciones;
+    }
+
+    private void validacionSession(Session session) throws IllegalArgumentException{
+        if(session==null){
+            throw new IllegalArgumentException("La session no puede ser null");
+        }
+    }
+
+     private void validacionOrigen(String origen) throws IllegalArgumentException{
+        if(origen==null || origen.isEmpty()){
+            throw new IllegalArgumentException("El origen no puede ser null o vacio");
+        }
+    }
+
+    private void validacionEmail(String email) throws IllegalArgumentException{
+        if(email==null || email.isEmpty()){
+            throw new IllegalArgumentException("El email no puede ser null o vacio");
+        }
+    }
+
+    private void validacionMensaje(String mensaje) throws IllegalArgumentException{
+        if(mensaje==null || mensaje.isEmpty()){
+            throw new IllegalArgumentException("El mensaje no puede ser null o vacio");
+        }
     }
 }

@@ -1,5 +1,6 @@
 package ejercicio_2.persistencia;
 
+import ejercicio_2.modelo.Email;
 import ejercicio_2.modelo.RegistroEmpleados;
 import ejercicio_2.modelo.Empleado;
 
@@ -14,13 +15,15 @@ public class ArchivoEmpleados implements RegistroEmpleados {
     private File archivo;
 
 
-    public ArchivoEmpleados(String ruta) {
-        validarDato(ruta);
+    public ArchivoEmpleados(String ruta) throws IllegalArgumentException {
+        validarRuta(ruta);
         this.archivo = new File(ruta);
     }
 
     @Override
-    public void guardar(Empleado empleado) {
+    public void guardar(Empleado empleado)throws IllegalArgumentException {
+
+        validarEmpleado(empleado);
         try {
             if (!archivo.exists()) {
                 archivo.createNewFile();
@@ -66,7 +69,7 @@ public class ArchivoEmpleados implements RegistroEmpleados {
                 LocalDate fecha = LocalDate.parse(partes[2]);
                 String email = partes[3];
 
-                empleados.add(new Empleado(nombre, apellido, fecha, email));
+                empleados.add(new Empleado(nombre, apellido, fecha, new Email(email)));
             }
 
         } catch (IOException e) {
@@ -78,6 +81,7 @@ public class ArchivoEmpleados implements RegistroEmpleados {
 
     @Override
     public void eliminarRegistro(String ruta) {
+        validarRuta(ruta);
         File archivoAEliminar = new File(ruta);
         if (archivoAEliminar.exists()) {
             if (!archivoAEliminar.delete()) {
@@ -88,7 +92,11 @@ public class ArchivoEmpleados implements RegistroEmpleados {
         }
     }
 
-    private void validarDato(String dato){
-        if(dato==null || dato.isEmpty())throw new IllegalArgumentException("El dato no puede ser nulo o vacío.");
+    private void validarRuta(String dato)throws IllegalArgumentException{
+        if(dato==null || dato.isEmpty())throw new IllegalArgumentException("La ruta no puede ser nulo o vacío.");
+    }
+
+    private void validarEmpleado(Empleado empleado)throws IllegalArgumentException{
+        if(empleado==null)throw new IllegalArgumentException("El empleado no puede ser null.");
     }
 }

@@ -10,7 +10,7 @@ import java.time.MonthDay;
 
 public class Main {
 
-    private static String RUTA="empleados.txt";
+    private static String RUTA="src/main/java/resources/empleados.txt";
 
     public static void main(String[] args) {
 
@@ -37,21 +37,21 @@ public class Main {
                 "Angus",
                 "Young",
                 LocalDate.parse("1982-10-08"),
-                "angus@acdc.com"
+                new Email("angus@acdc.com")
         ));
 
         archivo.guardar(new Empleado(
                 "Brian",
                 "Johnson",
                 LocalDate.parse("1975-09-11"),
-                "brian@acdc.com"
+                new Email("brian@acdc.com")
         ));
 
 
         archivo.guardar(new Empleado(
                 "Pepe",
                 "Argento",
-                fechaCompleta(), origen
+                fechaCompleta(), new Email(origen)
         ));
 
         System.out.println("Empleados inicializados correctamente");
