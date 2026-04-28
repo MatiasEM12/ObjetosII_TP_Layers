@@ -26,15 +26,18 @@ public class SetUpBD {
             inicializarConcursos();
             inicializarInscriptos();
         } catch (Exception e) {
-            throw new RuntimeException("Error al inicializar BD", e);
+            throw new RuntimeException("Error al inicializar BD"+ e);
         }
     }
 
 
     private void inicializarConcursos() {
 
-        concursoDAO.truncateTabla();
-
+        try {
+            concursoDAO.truncateTabla();
+        }catch (RuntimeException e){
+            System.out.println("Error al limpiar tabla: " + e.getMessage()) ;
+        }
         concursoDAO.crear(new Concurso(
                 1,
                 "Concurso X",
@@ -60,9 +63,12 @@ public class SetUpBD {
 
     private void inicializarInscriptos() {
 
-        inscriptoDAO.truncateTabla();
-
-        inscriptoDAO.create(new Inscripto(
+        try {
+            inscriptoDAO.truncateTabla();
+        }catch (RuntimeException e){
+            System.out.println("Error al limpiar tabla: " + e.getMessage()) ;
+        }
+        inscriptoDAO.crear(new Inscripto(
                 "Angus",
                 "Young",
                 "12345678",
@@ -71,7 +77,7 @@ public class SetUpBD {
                 1
         ));
 
-        inscriptoDAO.create(new Inscripto(
+        inscriptoDAO.crear(new Inscripto(
                 "Brian",
                 "Johnson",
                 "87654321",
