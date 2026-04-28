@@ -1,14 +1,14 @@
 package ejercicio_3.persistencia;
 
 import ejercicio_3.modelo.Concurso;
-import ejercicio_3.modelo.GestionArchivo;
+import ejercicio_3.modelo.GestionPersistencia;
 
 import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class ArchivoConcursos implements GestionArchivo<Concurso> {
+public class ArchivoConcursos implements GestionPersistencia<Concurso> {
 
     public static final int INDICE_ID = 0;
     private File archivo;

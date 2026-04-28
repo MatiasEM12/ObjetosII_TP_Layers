@@ -4,9 +4,9 @@ public class GestorInscripciones{
 
 
 
-    private GestionArchivo<Inscripto> inscriptos;
+    private GestionPersistencia<Inscripto> inscriptos;
 
-    public GestorInscripciones(GestionArchivo<Inscripto> inscriptos) {
+    public GestorInscripciones(GestionPersistencia<Inscripto> inscriptos) {
         this.inscriptos = inscriptos;
     }
 

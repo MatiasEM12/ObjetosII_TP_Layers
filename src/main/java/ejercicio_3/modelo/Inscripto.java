@@ -27,6 +27,31 @@ public class Inscripto {
         this.idConcurso = idConcurso;
     }
 
+
+    public String nombre() {
+        return nombre;
+    }
+
+    public String apellido(){
+        return apellido;
+    }
+
+    public String dni(){
+        return dni;
+    }
+
+    public int idConcurso(){
+        return idConcurso;
+    }
+
+    public String email(){
+        return email.email();
+    }
+
+    public String telefono(){
+        return telefono.numero();
+    }
+
     //validaciones
     private void validarNombre(String nombre){
       if (nombre.isEmpty()) {

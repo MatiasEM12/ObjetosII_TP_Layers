@@ -53,6 +53,17 @@ public class Concurso {
     public int id() {
         return id;
     }
+    public String nombre() {
+        return nombre;
+    }
+
+    public LocalDate fechaInicio() {
+        return fechaInicio;
+    }
+    public LocalDate fechaFin() {
+        return fechaFin;
+    }
+
     public boolean mismoId(Concurso otro) {
         return this.id == otro.id;
     }

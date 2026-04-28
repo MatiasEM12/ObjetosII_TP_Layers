@@ -5,9 +5,9 @@ import java.util.List;
 
 public class GestorConcursos {
 
-    private GestionArchivo <Concurso> concursos;
+    private GestionPersistencia<Concurso> concursos;
 
-    public GestorConcursos(GestionArchivo<Concurso> concursos) {
+    public GestorConcursos(GestionPersistencia<Concurso> concursos) {
         this.concursos = concursos;
     }
 

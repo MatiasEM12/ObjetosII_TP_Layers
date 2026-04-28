@@ -1,14 +1,14 @@
 package ejercicio_3.persistencia;
 
 import ejercicio_3.modelo.Email;
-import ejercicio_3.modelo.GestionArchivo;
+import ejercicio_3.modelo.GestionPersistencia;
 import ejercicio_3.modelo.Inscripto;
 import ejercicio_3.modelo.Telefono;
 
 import java.io.*;
 import java.util.ArrayList;
 
-public class ArchivoInscriptos implements GestionArchivo<Inscripto> {
+public class ArchivoInscriptos implements GestionPersistencia<Inscripto> {
 
     private File archivo;
 

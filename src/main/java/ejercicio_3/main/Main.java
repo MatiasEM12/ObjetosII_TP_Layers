@@ -1,6 +1,5 @@
 package ejercicio_3.main;
 
-import ejercicio_3.modelo.GestionArchivo;
 import ejercicio_3.modelo.GestorConcursos;
 import ejercicio_3.modelo.GestorInscripciones;
 import ejercicio_3.persistencia.ArchivoConcursos;
