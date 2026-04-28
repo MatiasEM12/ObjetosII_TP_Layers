@@ -6,13 +6,13 @@ public class Email {
     private String email;
 
 
-    public Email(String email) {
+    public Email(String email) throws  IllegalArgumentException {
         validarEmail(email);
         this.email = email;
 
     }
 
-    private void validarEmail(String email) {
+    private void validarEmail(String email) throws IllegalArgumentException{
 
         if (!checkEmail(email)){
             throw new IllegalArgumentException("El email no es válido");

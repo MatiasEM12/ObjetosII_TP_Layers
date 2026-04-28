@@ -9,7 +9,7 @@ public class Concurso {
     private LocalDate fechaInicio;
     private LocalDate fechaFin;
 
-    public Concurso(int id, String nombre, LocalDate fechaInicio, LocalDate fechaFin) {
+    public Concurso(int id, String nombre, LocalDate fechaInicio, LocalDate fechaFin)throws IllegalArgumentException {
         validarId(id);
         validarNombre(nombre);
         validarFechas(fechaInicio, fechaFin);
@@ -22,19 +22,19 @@ public class Concurso {
 
 
 
-    private void validarId(int id) {
+    private void validarId(int id) throws IllegalArgumentException {
         if (id <= 0) {
             throw new IllegalArgumentException("El id debe ser un número positivo");
         }
     }
 
-    private void validarNombre(String nombre) {
+    private void validarNombre(String nombre) throws IllegalArgumentException {
         if (nombre.isEmpty()) {
             throw new IllegalArgumentException("El nombre del concurso no puede estar vacío");
         }
     }
 
-    public void validarFechas(LocalDate fechaInicio, LocalDate fechaFin) {
+    public void validarFechas(LocalDate fechaInicio, LocalDate fechaFin) throws IllegalArgumentException{
         if (fechaInicio == null || fechaFin == null) {
             throw new IllegalArgumentException("Las fechas no pueden ser nulas");
         }
@@ -42,6 +42,8 @@ public class Concurso {
             throw new IllegalArgumentException("La fecha de inicio debe ser anterior a la fecha de fin");
         }
     }
+
+
 
     public boolean estaActivo(){
         LocalDate hoy = LocalDate.now();
@@ -76,5 +78,7 @@ public class Concurso {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         return fecha.format(formatter);
     }
+
+
 
 }

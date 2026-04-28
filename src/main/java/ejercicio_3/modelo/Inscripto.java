@@ -11,7 +11,7 @@ public class Inscripto {
     private Email email;
     private int idConcurso;
 
-    public Inscripto(String nombre, String apellido,String dni ,Telefono telefono, Email email, int idConcurso) {
+    public Inscripto(String nombre, String apellido,String dni ,Telefono telefono, Email email, int idConcurso) throws IllegalArgumentException{
         validarNombre(nombre);
         validarApellido(apellido);
         validarDni(dni);
@@ -53,37 +53,37 @@ public class Inscripto {
     }
 
     //validaciones
-    private void validarNombre(String nombre){
+    private void validarNombre(String nombre) throws IllegalArgumentException{
       if (nombre.isEmpty()) {
         throw new IllegalArgumentException("El nombre no puede estar vacío");
       }
     }
 
-    private void validarApellido(String apellido){
+    private void validarApellido(String apellido)throws IllegalArgumentException{
         if (apellido.isEmpty()) {
             throw new IllegalArgumentException("El apellido no puede estar vacío");
         }
     }
 
-    private void validarDni(String dni){
+    private void validarDni(String dni)throws IllegalArgumentException{
         if(dni.isEmpty()) {
             throw new IllegalArgumentException("El dni no puede estar vacío");
         }
     }
 
-    private void validarIdconcurso(int idConcurso){
+    private void validarIdconcurso(int idConcurso)throws IllegalArgumentException{
         if(idConcurso <= 0) {
             throw new IllegalArgumentException("Debe elegir un Concurso");
         }
     }
 
-    private void validarEmail(Email email){
+    private void validarEmail(Email email)throws IllegalArgumentException{
         if(email == null) {
             throw new IllegalArgumentException("Debe ingresar un email");
         }
     }
 
-    private void validarTelefono(Telefono telefono){
+    private void validarTelefono(Telefono telefono)throws IllegalArgumentException{
         if(telefono == null) {
             throw new IllegalArgumentException("Debe ingresar un teléfono");
         }

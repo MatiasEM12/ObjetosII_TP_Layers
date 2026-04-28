@@ -6,7 +6,8 @@ public class GestorInscripciones{
 
     private GestionPersistencia<Inscripto> inscriptos;
 
-    public GestorInscripciones(GestionPersistencia<Inscripto> inscriptos) {
+    public GestorInscripciones(GestionPersistencia<Inscripto> inscriptos) throws IllegalArgumentException {
+        validarGestionPersistencia( inscriptos);
         this.inscriptos = inscriptos;
     }
 
@@ -26,4 +27,9 @@ public class GestorInscripciones{
 
     }
 
+    private void validarGestionPersistencia(GestionPersistencia<Inscripto> inscriptos) throws IllegalArgumentException{
+        if(inscriptos ==null){
+            throw new IllegalArgumentException("Gestion de Persistencia no puede ser nulo");
+        }
+    }
 }

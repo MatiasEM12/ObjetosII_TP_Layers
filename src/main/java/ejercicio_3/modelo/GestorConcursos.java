@@ -7,7 +7,9 @@ public class GestorConcursos {
 
     private GestionPersistencia<Concurso> concursos;
 
-    public GestorConcursos(GestionPersistencia<Concurso> concursos) {
+    public GestorConcursos(GestionPersistencia<Concurso> concursos) throws IllegalArgumentException {
+
+        validarGestionPersistencia(concursos);
         this.concursos = concursos;
     }
 
@@ -28,9 +30,16 @@ public class GestorConcursos {
     }
 
 
-     public List<Concurso> listarConcursosActivos() {
+    public List<Concurso> listarConcursosActivos() {
         return this.concursos.listar().stream()
                 .filter(Concurso::estaActivo)
                 .toList();
     }
+
+    private void validarGestionPersistencia(GestionPersistencia<Concurso> concursos) throws IllegalArgumentException{
+        if(concursos ==null){
+             throw new IllegalArgumentException("Gestion de Persistencia no puede ser nulo");
+        }
+    }
+
 }

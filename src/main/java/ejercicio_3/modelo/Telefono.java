@@ -5,12 +5,12 @@ import javax.swing.*;
 public class Telefono {
     private String numero;
 
-    public Telefono(String numero) {
+    public Telefono(String numero)throws IllegalArgumentException {
         validarNumero(numero);
         this.numero = numero;
     }
 
-    private void validarNumero(String numero) {
+    private void validarNumero(String numero) throws IllegalArgumentException{
         if (!checkPhone(numero)) {
 
             throw new IllegalArgumentException("El teléfono debe ingresarse de la siguiente forma: NNNN-NNNNNN");
