@@ -22,14 +22,15 @@ public class Main {
 
 
     public static void main(String[] args) {
+
+        System.out.println("MAIN EJECUTANDO");
+
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
                 try {
                     new Main().start();
-
                 } catch (Exception e) {
-
                     System.out.println(e);
                 }
             }
@@ -37,12 +38,19 @@ public class Main {
     }
     private void start() {
 
-
-       usarConArchivo();
+        usarConLog();
+        // usarConArchivo();
         // usarConBaseDeDatos();
 
     }
 
+    private static void usarConLog() {
+        var gestorConcurso = new GestorConcursos(new ArchivoConcursos(RUTA_CONCURSOS));
+        var gestorInscriptos = new GestorInscripciones(new ArchivoInscriptos(RUTA_INSCRIPTOS));
+        new SetUpLog(gestorInscriptos, gestorConcurso,RUTA_CONCURSOS,RUTA_INSCRIPTOS).inicializar();
+        //new RadioCompetition(gestorInscriptos, gestorConcurso);
+
+    }
     private static void usarConArchivo() {
         new SetUpArchivo(RUTA_CONCURSOS, RUTA_INSCRIPTOS).inicializar();
         var gestorConcurso = new GestorConcursos(new ArchivoConcursos(RUTA_CONCURSOS));

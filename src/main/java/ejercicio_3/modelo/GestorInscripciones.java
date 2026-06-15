@@ -11,6 +11,7 @@ public class GestorInscripciones{
         this.inscriptos = inscriptos;
     }
 
+    @Log
     public void guardarInscripto(String nombre, String apellido, String dni,String telefono, String email,String idConcurso) throws Exception {
 
         var inscripto = new Inscripto(nombre, apellido, dni, new Telefono(telefono), new Email(email), Integer.parseInt(idConcurso));

@@ -25,6 +25,7 @@ public class GestorConcursos {
         this.concursos.crear(concurso);
     }
 
+    @Log
     public List<Concurso> listarConcursos() {
         return this.concursos.listar();
     }
