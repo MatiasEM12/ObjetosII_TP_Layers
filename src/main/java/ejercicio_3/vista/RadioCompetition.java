@@ -65,10 +65,12 @@ import javax.swing.border.EmptyBorder;
             txtId = new JTextField();
             txtId.setColumns(10);
             lblPhone = new JLabel("Telefono:");
-            txtPhone = new JTextField();
+            txtPhone = new JTextField("NNNN-NNNNN");
+            txtPhone.setForeground(java.awt.Color.GRAY);
             txtPhone.setColumns(10);
             lblEmail = new JLabel("Email:");
-            txtEmail = new JTextField();
+            txtEmail = new JTextField("tuCorreo@email.com");
+            txtEmail.setForeground(java.awt.Color.GRAY);
             txtEmail.setColumns(10);
             btnOk = new JButton("Ok");
             btnOk.addActionListener(new ActionListener() {

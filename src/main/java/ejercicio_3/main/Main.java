@@ -48,7 +48,7 @@ public class Main {
         var gestorConcurso = new GestorConcursos(new ArchivoConcursos(RUTA_CONCURSOS));
         var gestorInscriptos = new GestorInscripciones(new ArchivoInscriptos(RUTA_INSCRIPTOS));
         new SetUpLog(gestorInscriptos, gestorConcurso,RUTA_CONCURSOS,RUTA_INSCRIPTOS).inicializar();
-        //new RadioCompetition(gestorInscriptos, gestorConcurso);
+        new RadioCompetition(gestorInscriptos, gestorConcurso);
 
     }
     private static void usarConArchivo() {

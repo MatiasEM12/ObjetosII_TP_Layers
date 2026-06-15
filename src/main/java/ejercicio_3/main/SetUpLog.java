@@ -76,20 +76,12 @@ public class SetUpLog {
     }
 
 
-    private void inicializarInscriptos() throws Exception {
+    private void inicializarInscriptos(){
         File archivo = new File(rutaInscriptos);
 
         if (archivo.exists() && archivo.length() > 0) {
             return;
         }
 
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(archivo))) {
-
-            bw.write("Young,Angus,12345678,4444-898789,angus@acdc.com,1");
-            bw.newLine();
-
-            bw.write("Johnson,Brian,87654321,7789-658987,brian@acdc.com,2");
-            bw.newLine();
-        }
     }
 }
